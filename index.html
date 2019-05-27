@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
+		<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
+		<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+		<title>A Todo App</title>
+	</head>
+	<body>
+		<div id="root"></div>
+		<script type="text/babel">
+		
+			class App extends React.Component{
+				constructor(props){
+					super(props);
+					this.state={
+						data:[
+								{
+									id:1,
+									firstName:"rahul",
+									lastName:"arunachalam",
+									age:26
+								},
+								{
+									id:2,
+									firstName:"raghu",
+									lastName:"arunachalam",
+									age:29
+								},
+								{
+									id:3,
+									firstName:"ammu",
+									lastName:"raghunathan",
+									age:27
+								},
+								{
+									id:4,
+									firstName:"safir",
+									lastName:"sha",
+									age:25
+								}
+							],
+						showEdit:false
+					}
+				}
+				handleAddStudent = (student) => {
+					let data=this.state.data.concat(student)
+					this.setState({data})
+				}
+				render(){
+					return(
+					<div>
+						<StudentTable data={this.state.data}/>
+						<AddStudent handleAddStudent={this.handleAddStudent}/>
+					</div>
+					)
+				}
+			}
+			
+			const StudentTable = (props) => {
+				return(
+					props.data.map((item, index)=>{
+						return(
+							<p key={index}>{item.firstName}</p>
+						)
+					})
+				)
+			}
+			
+			const AddStudent = (props) => {
+				let newStudent={}
+				return(
+					<div>
+						<input type="text" placeholder="firstName" onChange={(e)=> newStudent.firstName=e.target.value} />
+						<button type="button" onClick={()=>{props.handleAddStudent(newStudent)}}>Add</button>
+					</div>				
+				)
+			}
+			
+			const EditStudent = (props) => {
+			
+			}
+						
+			ReactDOM.render(
+				<App />,
+				document.getElementById('root')
+			);
+			
+		</script>
+	</body>
+</html>
